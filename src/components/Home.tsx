@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Box, Code, Grid, HStack, Icon, Link, Text, VStack } from '@chakra-ui/react'
-import { FaFacebook, FaVimeoSquare, FaWordpressSimple } from 'react-icons/all'
+import { FaFacebook, FaVimeoSquare, FaWordpressSimple } from 'react-icons/fa'
 import { ColorModeSwitcher } from '../lib/chakra-ui/ColorModeSwitcher'
 import { Logo } from './Logo'
 
