@@ -6,6 +6,10 @@ const Register = () => (
     <Grid minH="100vh" p={3}>
       <VStack spacing={8}>
         <h1>Register</h1>
+
+        <Box as="button" borderRadius="md" bg="tomato" color="white" px={4} h={8}>
+          Button
+        </Box>
       </VStack>
     </Grid>
   </Box>

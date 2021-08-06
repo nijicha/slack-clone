@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { BrowserRouter as Switch, Route } from 'react-router-dom'
-import Home from '../components/Home'
-import Login from '../components/Auth/Login'
-import Register from '../components/Auth/Register'
+
+import Home from '../pages/Home'
+import Login from '../pages/Auth/Login'
+import Register from '../pages/Auth/Register'
 
 export const Routes = () => (
   <Switch>
