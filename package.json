@@ -1,5 +1,6 @@
 {
   "name": "slack-clone",
+  "description": "Try to Build a Slack Chat App with React, Redux, and Firebase",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

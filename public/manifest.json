@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Slack Clone",
+  "name": "Try to Build a Slack Chat App with React, Redux, and Firebase",
   "icons": [
     {
       "src": "favicon.ico",
