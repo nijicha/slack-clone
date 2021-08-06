@@ -6,8 +6,8 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 import * as serviceWorker from './serviceWorker'
 
-import { Routes } from './config/Routes'
-import { theme } from './lib/chakra-ui/theme'
+import Routes from './config/Routes'
+import theme from './lib/chakra-ui/theme'
 
 const App = () => (
   <ChakraProvider theme={theme}>
@@ -19,7 +19,7 @@ const App = () => (
 
 ReactDOM.render(
   <React.StrictMode>
-    <ColorModeScript />
+    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <App />
   </React.StrictMode>,
   document.getElementById('root'),
