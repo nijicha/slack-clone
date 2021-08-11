@@ -15,7 +15,7 @@ const Fonts = () => {
       @font-face {
         font-family: 'Noto Sans Thai';
         font-style: normal;
-        font-weight: 400;
+        font-weight: 700;
         src: url('fonts/Noto Sans/th/NotoSansThai-Bold.ttf') format('truetype');
       }
 
