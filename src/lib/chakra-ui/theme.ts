@@ -13,6 +13,15 @@ const colors = {
   },
 }
 
-const theme = extendTheme({ config, colors })
+const fonts = {
+  heading: 'Noto Sans Thai, Noto Sans',
+  body: 'Noto Sans Thai, Noto Sans',
+}
+
+const theme = extendTheme({
+  config,
+  colors,
+  fonts,
+})
 
 export default theme

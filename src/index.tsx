@@ -8,9 +8,11 @@ import * as serviceWorker from './serviceWorker'
 
 import Routes from './config/Routes'
 import theme from './lib/chakra-ui/theme'
+import Fonts from './components/Styles/Fonts'
 
 const App = () => (
   <ChakraProvider theme={theme}>
+    <Fonts />
     <Router>
       <Routes />
     </Router>
