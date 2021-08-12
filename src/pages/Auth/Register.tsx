@@ -1,10 +1,15 @@
-import * as React from 'react'
-import { Box } from '@chakra-ui/react'
+import React from 'react'
+import { Flex } from '@chakra-ui/react'
+import Card from '../../components/examples/Card'
 
 const Register = () => (
-  <Box textAlign="center" fontSize="xl">
-    <h1>Register</h1>
-  </Box>
+  <Flex height="100vh" alignItems="center" justifyContent="center">
+    <Flex direction="row">
+      <Card />
+      <Card />
+      <Card />
+    </Flex>
+  </Flex>
 )
 
 export default Register

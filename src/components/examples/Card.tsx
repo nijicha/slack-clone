@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { Box, Image, Badge, Text } from '@chakra-ui/react'
+import { Box, Badge, Text, Flex, Spinner } from '@chakra-ui/react'
 import { StarIcon } from '@chakra-ui/icons'
 
 const Card = () => {
+  const [isLoading, setIsLoading] = React.useState(true)
   const property = {
     imageUrl: 'https://bit.ly/2Z4KKcF',
     imageAlt: 'Rear view of modern home with pool',
@@ -14,9 +15,22 @@ const Card = () => {
     rating: 4,
   }
 
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+  }, [])
+
   return (
     <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-      <Image src={property.imageUrl} alt={property.imageAlt} />
+      {/* TODO: create @media query for responsive here */}
+      <Flex height={250} alignItems="center" justifyContent="center">
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <img style={{ display: 'block', maxWidth: '100%' }} src={property.imageUrl} alt={property.imageAlt} />
+        )}
+      </Flex>
 
       <Box p="6">
         <Box d="flex" alignItems="baseline">
@@ -36,7 +50,7 @@ const Card = () => {
         </Box>
 
         <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
-          <Text bgGradient="linear(to-r, green.200, pink.500)">{property.title}</Text>
+          <Text>{property.title}</Text>
         </Box>
 
         <Box>
