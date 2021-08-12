@@ -1,6 +1,6 @@
 ## Story | Reference URL
 <!--
-    Puts an URL which related to this task.
+    Puts a related URL to this task.
 
     --- Examples ---
     - Notion page URL
@@ -11,7 +11,7 @@
 
 ## Motivation & Context
 <!--
-    Description an purpose|motivation of this task.
+    Description purpose | motivation of this task.
 
     --- Examples ---
     - Users should be able to register to this system.
@@ -20,16 +20,16 @@
 
 ## Propose of Change
 <!--
-    Explanation for non-developer what are improvement|fix|feature from this task.
+    The explanation for non-developer what are improvement | fix | features from this task.
 
     --- Examples ---
-    - Create an Register page and stored user registered information.
+    - Create a Register page and stored user registered information.
 -->
 
 
 ## Implementation Detail
 <!--
-    Explanation in developer perspective.
+    The explanation from developer's perspective.
     
     --- Examples ---
     - Add ... in files
@@ -41,10 +41,10 @@
 
 ## Usage | Scenario
 <!--
-    A short paragraph or steps easily for reviewer to understanding this task.
+    A short paragraph or steps easily for the reviewer to understanding this task.
     
     --- Examples ---
-    This is user registration flow.
+    This is a user registration flow.
     
     ### Steps
     - Go to `localhost:3000`
@@ -67,7 +67,7 @@
 
 ## Impact
 <!--
-This like checklist & note but scoped on impact existing system.
+This looks like Checklist & Note but scoped on impact existing system.
 -->
 
 
