@@ -4,9 +4,9 @@ import { BrowserRouter as Switch, Route } from 'react-router-dom'
 import Home from '../pages/Home'
 import Login from '../pages/Auth/Login'
 import Register from '../pages/Auth/Register'
-import Blogs from '../pages/Blogs'
+import Blogs from '../components/examples/Blogs'
 
-import TryReactHooks from '../components/TryReactHooks'
+import TryReactHooks from '../components/playground/TryReactHooks'
 
 const Routes = () => (
   <Switch>
