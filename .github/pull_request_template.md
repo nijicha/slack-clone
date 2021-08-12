@@ -1,6 +1,6 @@
 ## Story | Reference URL
 <!--
-    Puts an related URL to this task.
+    Puts a related URL to this task.
 
     --- Examples ---
     - Notion page URL
@@ -23,13 +23,13 @@
     The explanation for non-developer what are improvement | fix | features from this task.
 
     --- Examples ---
-    - Create an Register page and stored user registered information.
+    - Create a Register page and stored user registered information.
 -->
 
 
 ## Implementation Detail
 <!--
-    The explanation from developer perspective.
+    The explanation from developer's perspective.
     
     --- Examples ---
     - Add ... in files
@@ -67,7 +67,7 @@
 
 ## Impact
 <!--
-This is like checklist & note but scoped on impact existing system.
+This looks like Checklist & Note but scoped on impact existing system.
 -->
 
 
