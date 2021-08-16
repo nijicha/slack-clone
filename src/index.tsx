@@ -2,6 +2,7 @@ import * as React from 'react'
 import ReactDOM from 'react-dom'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 import reportWebVitals from './reportWebVitals'
 import * as serviceWorker from './serviceWorker'
@@ -10,13 +11,17 @@ import Routes from './config/Routes'
 import theme from './lib/chakra-ui/theme'
 import Fonts from './components/Styles/Fonts'
 
+const queryClient = new QueryClient()
+
 const App = () => (
-  <ChakraProvider theme={theme}>
-    <Fonts />
-    <Router>
-      <Routes />
-    </Router>
-  </ChakraProvider>
+  <QueryClientProvider client={queryClient}>
+    <ChakraProvider theme={theme}>
+      <Fonts />
+      <Router>
+        <Routes />
+      </Router>
+    </ChakraProvider>
+  </QueryClientProvider>
 )
 
 ReactDOM.render(
