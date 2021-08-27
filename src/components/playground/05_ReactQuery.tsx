@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useQuery } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
-import { Center, Heading, ListItem, OrderedList, Spinner } from '@chakra-ui/react'
+import { Center, Heading, ListItem, OrderedList, Spinner, Stack } from '@chakra-ui/react'
 
 export default function ReactQuery() {
   const { data, dataUpdatedAt, error, isLoading, isError, isFetching } = useQuery<Array<Comment>, Error>(
@@ -17,7 +17,10 @@ export default function ReactQuery() {
 
   return (
     <Center p={6}>
-      <Heading>Data updated: {dataUpdatedAt}</Heading>
+      <Stack>
+        <Heading>Data updated: {dataUpdatedAt}</Heading>
+        {isFetching ? 'Updating...' : ''}
+      </Stack>
       {data &&
         data.slice(0, 3).map(comment => (
           <OrderedList key={comment.id}>
@@ -27,9 +30,7 @@ export default function ReactQuery() {
           </OrderedList>
         ))}
 
-      {isFetching ? 'Updating...' : ''}
-
-      <ReactQueryDevtools initialIsOpen />
+      <ReactQueryDevtools initialIsOpen={false} />
     </Center>
   )
 }

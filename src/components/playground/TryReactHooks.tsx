@@ -5,6 +5,7 @@ import AnotherStateHook from './02_AnotherStateHook'
 import ReducerHook from './03_ReducerHook'
 import EffectHook from './04_EffectHook'
 import ReactQuery from './05_ReactQuery'
+import RefHook from './06_RefHook'
 
 const TryReactHooks = () => {
   return (
@@ -31,6 +32,11 @@ const TryReactHooks = () => {
 
       <Heading>5. ReactQuery</Heading>
       <ReactQuery />
+
+      <Divider my={6} />
+
+      <Heading>6. React useRef</Heading>
+      <RefHook />
     </Container>
   )
 }
