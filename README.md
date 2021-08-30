@@ -57,3 +57,62 @@ You can learn more in the
 [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Dependencies Notes
+
+```markdown
+// UX/UI
+// CHAKRA SET
+@chakra-ui/icons
+@chakra-ui/react
+@emotion/react
+@emotion/styled
+framer-motion
+
+// Extension UI Libs
+react-avatar-editor
+react-color
+react-icons
+
+//  Libs
+// Playing
+axios
+react-query
+
+// Not started
+react-redux
+react-router-dom
+redux
+redux-devtools-extension
+dayjs
+emoji-mart
+firebase
+
+md5
+mime-types
+uuid
+
+// Create react App
+// Core
+react
+react-dom
+react-scripts
+typescript
+web-vitals
+
+// Testing
+@testing-library/jest-dom
+@testing-library/react
+@testing-library/user-event
+
+// For Typescript
+@types/jest
+@types/node
+@types/react
+@types/react-dom
+@types/react-router-dom
+
+// Deployment
+husky
+lint-staged
+```
