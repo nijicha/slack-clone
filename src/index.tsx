@@ -8,8 +8,8 @@ import reportWebVitals from './lib/reportWebVitals'
 import * as serviceWorker from './lib/serviceWorker'
 
 import Routes from './config/Routes'
-import theme from './app/lib/chakra-ui/theme'
-import Fonts from './app/components/Fonts'
+import theme from './config/theme'
+import Fonts from './config/theme/Fonts'
 
 const queryClient = new QueryClient()
 
