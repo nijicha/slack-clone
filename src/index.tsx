@@ -1,6 +1,6 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
+import { ChakraProvider, ColorModeScript, Box, Text } from '@chakra-ui/react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
@@ -13,6 +13,35 @@ import Fonts from './app/components/Fonts'
 
 const queryClient = new QueryClient()
 
+const AppDevHint = () => {
+  const envName = process.env.NODE_ENV !== 'development' ? process.env.REACT_APP_DEV_ENV_NAME : 'Development'
+  const colorScheme = process.env.NODE_ENV !== 'development' ? process.env.REACT_APP_DEV_ENV_COLOR_SCHEME : 'yellow'
+
+  if (!envName) {
+    return null
+  }
+
+  return (
+    <Box zIndex="100" position="fixed" top="0" insetStart="0" insetEnd="0" h="2px" bg={`${colorScheme}.400`}>
+      <Text
+        position="fixed"
+        top="0"
+        insetStart="4"
+        bg={`${colorScheme}.400`}
+        color={`${colorScheme}.900`}
+        fontSize="0.6rem"
+        fontWeight="bold"
+        px="1"
+        borderBottomStartRadius="sm"
+        borderBottomEndRadius="sm"
+        textTransform="uppercase"
+      >
+        {envName}
+      </Text>
+    </Box>
+  )
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ChakraProvider theme={theme}>
@@ -20,6 +49,7 @@ const App = () => (
       <Router>
         <Routes />
       </Router>
+      <AppDevHint />
     </ChakraProvider>
   </QueryClientProvider>
 )
