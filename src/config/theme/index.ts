@@ -18,10 +18,10 @@ const fonts = {
   body: 'Noto Sans Thai, Noto Sans',
 }
 
-const theme = extendTheme({
+const overrides = {
   config,
   colors,
   fonts,
-})
+}
 
-export default theme
+export default extendTheme(overrides)
