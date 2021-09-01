@@ -1,5 +1,6 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+
 import { ChakraProvider, ColorModeScript, Box, Text } from '@chakra-ui/react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -7,15 +8,16 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import reportWebVitals from './lib/reportWebVitals'
 import * as serviceWorker from './lib/serviceWorker'
 
-import Routes from './config/Routes'
+import Routes from './config/routes'
 import theme from './config/theme'
 import Fonts from './config/theme/Fonts'
 
 const queryClient = new QueryClient()
 
 const AppDevHint = () => {
-  const envName = process.env.NODE_ENV !== 'development' ? process.env.REACT_APP_DEV_ENV_NAME : 'Development'
-  const colorScheme = process.env.NODE_ENV !== 'development' ? process.env.REACT_APP_DEV_ENV_COLOR_SCHEME : 'yellow'
+  const envName = process.env.NODE_ENV === 'development' ? 'Development' : process.env.REACT_APP_DEV_ENV_NAME
+  const colorScheme =
+    process.env.NODE_ENV === 'development' ? 'yellow' : process.env.REACT_APP_DEV_ENV_COLOR_SCHEME ?? 'yellow'
 
   if (!envName) {
     return null
