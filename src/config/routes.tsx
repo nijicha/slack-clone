@@ -4,12 +4,14 @@ import { BrowserRouter as Switch, Route } from 'react-router-dom'
 import Home from '../app/pages/Home'
 import Login from '../app/pages/Auth/Login'
 import Register from '../app/pages/Auth/Register'
+import ForgotPassword from '../app/pages/Auth/ForgotPassword'
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
+    <Route path="/forgot-password" component={ForgotPassword} />
 
     {/* TODO: Add examples routes  */}
   </Switch>

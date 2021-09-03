@@ -12,35 +12,77 @@ import {
   Spacer,
   Image,
   Text,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
 
 import firebase from '../../../config/firebase'
 
-interface RegisterForm {
+interface RegisterFormState {
   email: string
   password: string
   passwordConfirmation: string
+  errors: Array<string>
 }
 
 const Register = () => {
-  const [formState, setFormState] = React.useState<'initial' | 'submitting' | 'success'>('initial')
-  const [error, setError] = React.useState(false)
-
-  const [state, setState] = React.useState<RegisterForm>({
+  const [state, setState] = React.useState<RegisterFormState>({
     email: '',
     password: '',
     passwordConfirmation: '',
+    errors: [],
   })
+
+  const [formState, setFormState] = React.useState<'initial' | 'submitting' | 'success'>('initial')
+  const [isError, setIsError] = React.useState(false)
+
+  const isFormValid = () => {
+    const errors = [...state.errors]
+
+    if (isFormEmpty(state)) {
+      errors.push('Fill all ')
+      setState({ ...state, errors })
+      return false
+    }
+    if (!isPasswordValid(state)) {
+      setState({ ...state, errors: ['Password not match'] })
+      return false
+    }
+    return true
+  }
+
+  const isFormEmpty = ({ email, password, passwordConfirmation }: RegisterFormState) => {
+    return !email.length || !password.length || !passwordConfirmation.length
+  }
+
+  const isPasswordValid = ({
+    password,
+    passwordConfirmation,
+  }: Pick<RegisterFormState, 'password' | 'passwordConfirmation'>) => {
+    // TODO: should not hard code password length 6 here
+    if (password.length < 6 || passwordConfirmation.length < 6) {
+      return false
+    }
+    return password === passwordConfirmation
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, [e.target.id]: e.target.value })
+
+    if (['password', 'passwordConfirmation'].includes(e.target.id)) {
+      console.log('will do isPasswordValid()')
+    }
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    setError(false)
+    if (!isFormValid) {
+      return
+    }
+
+    setIsError(false)
     setFormState('submitting')
 
     firebase
@@ -52,7 +94,7 @@ const Register = () => {
         console.log(createdUser)
       })
       .catch(err => {
-        setError(true)
+        setIsError(true)
         setFormState('initial')
 
         console.error(err)
@@ -70,27 +112,35 @@ const Register = () => {
       </Flex>
       <Flex as="form" p={8} flex={1} align="center" justify="center" onSubmit={handleSubmit}>
         <Stack spacing={4} w="full" maxW="md">
+          {isError && (
+            <Alert status="error">
+              <AlertIcon />
+              There was an error processing your request
+            </Alert>
+          )}
+
           <Heading fontSize="2xl">Register</Heading>
 
           <FormControl id="email">
             <FormLabel>Email address</FormLabel>
-            <Input type="email" onChange={handleChange} />
+            <Input type="email" onChange={handleChange} borderRadius={20} />
           </FormControl>
 
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
-            <Input type="password" onChange={handleChange} />
+            <Input type="password" onChange={handleChange} borderRadius={20} />
           </FormControl>
 
           <FormControl id="passwordConfirmation">
             <FormLabel>Password Confirmation</FormLabel>
-            <Input type="password" onChange={handleChange} />
+            <Input type="password" onChange={handleChange} borderRadius={20} />
           </FormControl>
 
           <Spacer />
 
           <Button
             variant="solid"
+            borderRadius={20}
             type={formState === 'success' ? 'button' : 'submit'}
             colorScheme={formState === 'success' ? 'green' : 'blue'}
             isLoading={formState === 'submitting'}
@@ -100,7 +150,7 @@ const Register = () => {
 
           <Divider />
 
-          <Flex p={2} align="center" justify="center" border="1px" borderRadius={4}>
+          <Flex p={2} align="center" justify="center" boxShadow="base" borderRadius={20}>
             <Text>
               Already have an account? &nbsp;
               <Link to="/login">Login</Link>
