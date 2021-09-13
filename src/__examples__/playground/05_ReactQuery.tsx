@@ -1,6 +1,6 @@
 import { Center, Heading, ListItem, OrderedList, Spinner, Stack } from '@chakra-ui/react'
 import axios from 'axios'
-import * as React from 'react
+import * as React from 'react'
 import { useQuery } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
