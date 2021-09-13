@@ -71,6 +71,7 @@ const Register = () => {
     setState({ ...state, [e.target.id]: e.target.value })
 
     if (['password', 'passwordConfirmation'].includes(e.target.id)) {
+      // eslint-disable-next-line
       console.log('will do isPasswordValid()')
     }
   }
