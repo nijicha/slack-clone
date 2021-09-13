@@ -1,4 +1,4 @@
-import { Box, ChakraProvider, ColorModeScript, Text } from '@chakra-ui/react'
+import { Box, CSSReset, ChakraProvider, ColorModeScript, Text } from '@chakra-ui/react'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -56,6 +56,7 @@ const App = () => (
 
 ReactDOM.render(
   <React.StrictMode>
+    <CSSReset />
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <App />
   </React.StrictMode>,

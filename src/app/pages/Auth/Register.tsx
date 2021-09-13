@@ -124,17 +124,17 @@ const Register = () => {
 
           <Heading fontSize="2xl">Register</Heading>
 
-          <FormControl id="email">
-            <FormLabel>Email address</FormLabel>
-            <Input type="email" onChange={handleChange} borderRadius={20} />
+          <FormControl id="email" isRequired>
+            <FormLabel>Email</FormLabel>
+            <Input type="email" onChange={handleChange} borderRadius={20} autoFocus />
           </FormControl>
 
-          <FormControl id="password">
+          <FormControl id="password" isRequired>
             <FormLabel>Password</FormLabel>
             <Input type="password" onChange={handleChange} borderRadius={20} />
           </FormControl>
 
-          <FormControl id="passwordConfirmation">
+          <FormControl id="passwordConfirmation" isRequired>
             <FormLabel>Password Confirmation</FormLabel>
             <Input type="password" onChange={handleChange} borderRadius={20} />
           </FormControl>

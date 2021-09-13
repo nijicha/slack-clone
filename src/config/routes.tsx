@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Route, BrowserRouter as Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import ForgotPassword from '../app/pages/Auth/ForgotPassword'
 import Login from '../app/pages/Auth/Login'
