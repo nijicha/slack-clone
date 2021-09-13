@@ -1,16 +1,14 @@
+import { Box, ChakraProvider, ColorModeScript, Text } from '@chakra-ui/react'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
-
-import { ChakraProvider, ColorModeScript, Box, Text } from '@chakra-ui/react'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-
-import reportWebVitals from './lib/reportWebVitals'
-import * as serviceWorker from './lib/serviceWorker'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 import Routes from './config/routes'
 import theme from './config/theme'
 import Fonts from './config/theme/Fonts'
+import reportWebVitals from './lib/reportWebVitals'
+import * as serviceWorker from './lib/serviceWorker'
 
 const queryClient = new QueryClient()
 

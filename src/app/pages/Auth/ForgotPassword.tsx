@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { Button, Flex, FormControl, Heading, Input, Stack, Text, useColorModeValue } from '@chakra-ui/react'
+import * as React from 'react'
 
 const ForgotPassword = () => {
   return (

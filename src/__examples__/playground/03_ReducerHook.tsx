@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { Button, Center, Heading, VStack } from '@chakra-ui/react'
+import * as React from 'react'
 
 export default function ReducerHook(): JSX.Element {
   const [state, dispatch] = React.useReducer(counterReducer, { count: 0 })

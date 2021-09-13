@@ -1,5 +1,6 @@
-import * as React from 'react'
 import { Container, Divider, Heading } from '@chakra-ui/react'
+import * as React from 'react'
+
 import StateHook from './01_StateHook'
 import AnotherStateHook from './02_AnotherStateHook'
 import ReducerHook from './03_ReducerHook'

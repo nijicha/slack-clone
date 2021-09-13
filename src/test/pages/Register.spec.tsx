@@ -1,11 +1,11 @@
-import * as React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
-import { render } from '../../lib/test-utils'
-import { findInput } from '../helpers/dom-utils'
+import { fireEvent, screen } from '@testing-library/react'
+import * as React from 'react'
 
 import Register from '../../app/pages/Auth/Register'
+import { render } from '../../lib/test-utils'
+import { findInput } from '../helpers/dom-utils'
 
 describe('Register', () => {
   it('renders the register form', () => {

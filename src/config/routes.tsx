@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { BrowserRouter as Switch, Route } from 'react-router-dom'
+import { Route, BrowserRouter as Switch } from 'react-router-dom'
 
-import Home from '../app/pages/Home'
+import ForgotPassword from '../app/pages/Auth/ForgotPassword'
 import Login from '../app/pages/Auth/Login'
 import Register from '../app/pages/Auth/Register'
-import ForgotPassword from '../app/pages/Auth/ForgotPassword'
+import Home from '../app/pages/Home'
 
 const Routes = () => (
   <Switch>

@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { Button, Center, Flex, FormControl, FormLabel, Input, Stack, FormHelperText } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
+import { Button, Center, Flex, FormControl, FormHelperText, FormLabel, Input, Stack } from '@chakra-ui/react'
+import * as React from 'react'
 
 const RefHook = () => {
   const [formState, setFormState] = React.useState<'initial' | 'submitting' | 'success'>('initial')

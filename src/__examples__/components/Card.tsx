@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { Box, Badge, Text, Flex, Spinner } from '@chakra-ui/react'
 import { StarIcon } from '@chakra-ui/icons'
+import { Badge, Box, Flex, Spinner, Text } from '@chakra-ui/react'
+import * as React from 'react'
 
 const Card = () => {
   const [isLoading, setIsLoading] = React.useState(true)

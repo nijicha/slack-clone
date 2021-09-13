@@ -1,10 +1,9 @@
-import * as React from 'react'
 import {
   Box,
   Container,
   Divider,
-  Heading,
   HStack,
+  Heading,
   Image,
   Link,
   SpaceProps,
@@ -12,6 +11,7 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react'
+import * as React from 'react'
 
 interface IBlogTags {
   tags: Array<string>

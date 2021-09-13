@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { Box, Button, Center } from '@chakra-ui/react'
+import * as React from 'react'
 
 const TryStateHook = () => {
   const [counter, setCounter] = React.useState(0)

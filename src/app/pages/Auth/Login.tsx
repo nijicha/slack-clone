@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
   Button,
   Flex,
@@ -11,7 +10,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react'
-
+import * as React from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 export default function Login() {

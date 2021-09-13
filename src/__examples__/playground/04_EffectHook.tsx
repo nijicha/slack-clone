@@ -1,7 +1,6 @@
-import React from 'react'
-import axios from 'axios'
-
 import { Center, ListItem, OrderedList } from '@chakra-ui/react'
+import axios from 'axios'
+import * as React from 'react
 
 interface Comment {
   postId: number

@@ -1,21 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { CheckIcon } from '@chakra-ui/icons'
 import {
-  Flex,
-  Heading,
-  Stack,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  Divider,
-  Spacer,
-  Image,
-  Text,
   Alert,
   AlertIcon,
+  Button,
+  Divider,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Image,
+  Input,
+  Spacer,
+  Stack,
+  Text,
 } from '@chakra-ui/react'
-import { CheckIcon } from '@chakra-ui/icons'
+import * as React from 'react
+import { Link } from 'react-router-dom'
 
 import firebase from '../../../config/firebase'
 
@@ -91,12 +91,14 @@ const Register = () => {
       .then(createdUser => {
         setFormState('success')
 
+        // eslint-disable-next-line
         console.log(createdUser)
       })
       .catch(err => {
         setIsError(true)
         setFormState('initial')
 
+        // eslint-disable-next-line
         console.error(err)
       })
   }

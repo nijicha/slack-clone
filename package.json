@@ -60,6 +60,12 @@
       "react-app/jest"
     ]
   },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -84,7 +90,9 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.3.2"
+    "import-sort-style-module": "^6.0.0",
+    "prettier": "^2.3.2",
+    "prettier-plugin-import-sort": "^0.0.7"
   },
   "husky": {
     "hooks": {
