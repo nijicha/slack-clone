@@ -1,21 +1,28 @@
-import { CheckIcon } from '@chakra-ui/icons'
 import {
   Alert,
+  AlertDescription,
   AlertIcon,
+  AlertTitle,
+  Box,
   Button,
+  CloseButton,
   Divider,
   Flex,
   FormControl,
   FormLabel,
   HStack,
   Heading,
+  Icon,
   Image,
   Input,
+  ListItem,
   Spacer,
   Stack,
   Text,
+  UnorderedList,
 } from '@chakra-ui/react'
 import * as React from 'react'
+import { FaCheckCircle } from 'react-icons/fa'
 import { Link as RouteLink } from 'react-router-dom'
 
 import firebase from '../../../config/firebase'
@@ -24,7 +31,7 @@ interface RegisterFormState {
   email: string
   password: string
   passwordConfirmation: string
-  errors: Array<string>
+  errors: Array<{ message: string }>
 }
 
 const Register = () => {
@@ -38,30 +45,32 @@ const Register = () => {
   const [formState, setFormState] = React.useState<'initial' | 'submitting' | 'success'>('initial')
   const [isError, setIsError] = React.useState(false)
 
-  const isFormValid = () => {
-    const errors = [...state.errors]
+  const isFormValid = (): boolean => {
+    const errors: Array<{ message: string }> = []
 
     if (isFormEmpty(state)) {
-      errors.push('Fill all ')
+      errors.push({ message: 'Fill in all fields' })
       setState({ ...state, errors })
       return false
     }
+
     if (!isPasswordValid(state)) {
-      setState({ ...state, errors: ['Password not match'] })
+      errors.push({ message: 'Password is invalid' })
+      setState({ ...state, errors })
       return false
     }
+
     return true
   }
 
-  const isFormEmpty = ({ email, password, passwordConfirmation }: RegisterFormState) => {
+  const isFormEmpty = ({ email, password, passwordConfirmation }: Omit<RegisterFormState, 'errors'>): boolean => {
     return !email.length || !password.length || !passwordConfirmation.length
   }
 
   const isPasswordValid = ({
     password,
     passwordConfirmation,
-  }: Pick<RegisterFormState, 'password' | 'passwordConfirmation'>) => {
-    // TODO: should not hard code password length 6 here
+  }: Pick<RegisterFormState, 'password' | 'passwordConfirmation'>): boolean => {
     if (password.length < 6 || passwordConfirmation.length < 6) {
       return false
     }
@@ -70,39 +79,37 @@ const Register = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, [e.target.id]: e.target.value })
-
-    if (['password', 'passwordConfirmation'].includes(e.target.id)) {
-      // eslint-disable-next-line
-      console.log('will do isPasswordValid()')
-    }
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!isFormValid) {
-      return
+    if (isFormValid()) {
+      setIsError(false)
+      setFormState('submitting')
+
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(state.email, state.password)
+        .then(createdUser => {
+          setFormState('success')
+
+          // eslint-disable-next-line
+          console.log(createdUser)
+          return true
+        })
+        .catch(err => {
+          setIsError(true)
+          setFormState('initial')
+
+          // eslint-disable-next-line
+          console.error(err)
+          return false
+        })
+    } else {
+      setIsError(true)
+      setFormState('initial')
     }
-
-    setIsError(false)
-    setFormState('submitting')
-
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(state.email, state.password)
-      .then(createdUser => {
-        setFormState('success')
-
-        // eslint-disable-next-line
-        console.log(createdUser)
-      })
-      .catch(err => {
-        setIsError(true)
-        setFormState('initial')
-
-        // eslint-disable-next-line
-        console.error(err)
-      })
   }
 
   return (
@@ -116,10 +123,20 @@ const Register = () => {
       </Flex>
       <Flex as="form" p={8} flex={1} align="center" justify="center" onSubmit={handleSubmit}>
         <Stack spacing={4} w="full" maxW="md">
-          {isError && (
+          {isError && state.errors.length > 0 && (
             <Alert status="error">
               <AlertIcon />
-              There was an error processing your request
+              <Box flex="1">
+                <AlertTitle>There was an error processing your request.</AlertTitle>
+                <AlertDescription>
+                  <UnorderedList>
+                    {state.errors.map((error, index) => {
+                      return <ListItem key={index}>{error.message}</ListItem>
+                    })}
+                  </UnorderedList>
+                </AlertDescription>
+              </Box>
+              <CloseButton position="absolute" right="8px" top="8px" />
             </Alert>
           )}
 
@@ -127,17 +144,36 @@ const Register = () => {
 
           <FormControl id="email" isRequired>
             <FormLabel>Email</FormLabel>
-            <Input onChange={handleChange} type="email" placeholder="Email" borderRadius={20} autoFocus />
+            <Input
+              onChange={handleChange}
+              value={state.email}
+              type="email"
+              placeholder="Email"
+              borderRadius={20}
+              autoFocus
+            />
           </FormControl>
 
           <FormControl id="password" isRequired>
             <FormLabel>Password</FormLabel>
-            <Input onChange={handleChange} type="password" placeholder="Password" borderRadius={20} />
+            <Input
+              onChange={handleChange}
+              value={state.password}
+              type="password"
+              placeholder="Password"
+              borderRadius={20}
+            />
           </FormControl>
 
           <FormControl id="passwordConfirmation" isRequired>
             <FormLabel>Password Confirmation</FormLabel>
-            <Input onChange={handleChange} type="password" placeholder="Password Confirmation" borderRadius={20} />
+            <Input
+              onChange={handleChange}
+              value={state.passwordConfirmation}
+              type="password"
+              placeholder="Password Confirmation"
+              borderRadius={20}
+            />
           </FormControl>
 
           <Spacer />
@@ -149,7 +185,7 @@ const Register = () => {
             colorScheme={formState === 'success' ? 'green' : 'blue'}
             isLoading={formState === 'submitting'}
           >
-            {formState === 'success' ? <CheckIcon /> : 'Register'}
+            {formState === 'success' ? <Icon as={FaCheckCircle} /> : 'Register'}
           </Button>
 
           <Divider />

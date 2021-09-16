@@ -49,7 +49,8 @@
     "@typescript-eslint/no-shadow": ["error"],
     "react/no-array-index-key": "off",
     "react/no-children-prop": "off",
-    "jsx-a11y/anchor-is-valid": "off" // Turn off for Chakra UI <Link />
+    "jsx-a11y/anchor-is-valid": "off", // Turn off for Chakra UI <Link />
+    "no-debugger": "off"
   },
   "settings": {
     "import/resolver": {
