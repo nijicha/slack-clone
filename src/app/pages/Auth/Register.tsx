@@ -132,7 +132,15 @@ const Register = () => {
                   </UnorderedList>
                 </AlertDescription>
               </Box>
-              <CloseButton position="absolute" right="8px" top="8px" />
+              <CloseButton
+                position="absolute"
+                right="8px"
+                top="8px"
+                onClick={() => {
+                  setIsError(false)
+                  setFormState('initial')
+                }}
+              />
             </Alert>
           )}
 
