@@ -4,7 +4,7 @@ import UserCredential = firebase.auth.UserCredential
 // common
 export interface FirebaseErrorResponse {
   a: undefined
-  code: number
+  code: string
   message: string
 }
 
