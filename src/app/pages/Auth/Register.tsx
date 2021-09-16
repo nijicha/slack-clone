@@ -159,7 +159,7 @@ const Register = () => {
 
           <Heading fontSize="2xl">Register</Heading>
 
-          <FormControl id="email" isRequired isInvalid={state.firebaseResponse.error && formState !== 'initial'}>
+          <FormControl id="email" isRequired isInvalid={!!state.firebaseResponse.error}>
             <FormLabel>Email</FormLabel>
             <Input
               value={state.email}
@@ -170,7 +170,7 @@ const Register = () => {
               errorBorderColor="red.300"
               onChange={handleChange}
             />
-            {state.firebaseResponse.error && state.firebaseResponse.error.code.includes('email') && (
+            {!!state.firebaseResponse.error && state.firebaseResponse.error.code.includes('email') && (
               <FormHelperText color="red.300">{state.firebaseResponse.error.message}</FormHelperText>
             )}
           </FormControl>
