@@ -28,16 +28,13 @@ import { FaCheckCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { Link as RouteLink } from 'react-router-dom'
 
 import firebase from '../../../config/firebase'
-
-interface ErrorMsg {
-  message: string
-}
+import { FormErrorsMsg } from '../../types/common/form'
 
 interface RegisterFormState {
   email: string
   password: string
   passwordConfirmation: string
-  errors: Array<{ message: string }>
+  formErrors: Array<FormErrorsMsg>
 }
 
 const Register = () => {
@@ -45,31 +42,32 @@ const Register = () => {
     email: '',
     password: '',
     passwordConfirmation: '',
-    errors: [],
+    formErrors: [],
   })
   const [formState, setFormState] = React.useState<'initial' | 'submitting' | 'success'>('initial')
   const [isError, setIsError] = React.useState(false)
   const [isShowPassword, setIsShowPassword] = React.useState(false)
 
   const isFormValid = () => {
-    const errors: Array<ErrorMsg> = []
+    const formErrors: Array<FormErrorsMsg> = []
+    setState({ ...state, formErrors })
 
     if (isFormEmpty(state)) {
-      errors.push({ message: 'Fill in all fields' })
-      setState({ ...state, errors })
+      formErrors.push({ message: 'Fill in all fields' })
+      setState({ ...state, formErrors })
       return false
     }
 
     if (!isPasswordValid(state)) {
-      errors.push({ message: 'Password is invalid' })
-      setState({ ...state, errors })
+      formErrors.push({ message: 'Password is invalid' })
+      setState({ ...state, formErrors })
       return false
     }
 
     return true
   }
 
-  const isFormEmpty = ({ email, password, passwordConfirmation }: Omit<RegisterFormState, 'errors'>) => {
+  const isFormEmpty = ({ email, password, passwordConfirmation }: Omit<RegisterFormState, 'formErrors'>) => {
     return !email.length || !password.length || !passwordConfirmation.length
   }
 
@@ -124,14 +122,14 @@ const Register = () => {
       </Flex>
       <Flex as="form" p={8} flex={1} align="center" justify="center" onSubmit={handleSubmit}>
         <Stack spacing={4} w="full" maxW="md">
-          {isError && state.errors.length > 0 && (
+          {isError && state.formErrors.length > 0 && (
             <Alert status="error">
               <AlertIcon />
               <Box flex="1">
                 <AlertTitle>There was an error processing your request.</AlertTitle>
                 <AlertDescription>
                   <UnorderedList>
-                    {state.errors.map((error, index) => {
+                    {state.formErrors.map((error, index) => {
                       return <ListItem key={index}>{error.message}</ListItem>
                     })}
                   </UnorderedList>
@@ -154,12 +152,12 @@ const Register = () => {
           <FormControl id="email" isRequired>
             <FormLabel>Email</FormLabel>
             <Input
-              onChange={handleChange}
               value={state.email}
               type="email"
               placeholder="Email"
-              borderRadius={20}
               autoFocus
+              borderRadius={20}
+              onChange={handleChange}
             />
           </FormControl>
 
@@ -167,11 +165,11 @@ const Register = () => {
             <FormLabel>Password</FormLabel>
             <InputGroup>
               <Input
-                onChange={handleChange}
                 value={state.password}
                 type={isShowPassword ? 'text' : 'password'}
                 placeholder="Password"
                 borderRadius={20}
+                onChange={handleChange}
               />
               <InputRightElement width="4.5rem">
                 <Button
@@ -193,11 +191,11 @@ const Register = () => {
             <FormLabel>Password Confirmation</FormLabel>
             <InputGroup>
               <Input
-                onChange={handleChange}
                 value={state.passwordConfirmation}
                 type={isShowPassword ? 'text' : 'password'}
                 placeholder="Password Confirmation"
                 borderRadius={20}
+                onChange={handleChange}
               />
               <InputRightElement width="4.5rem">
                 <Button
