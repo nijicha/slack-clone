@@ -71,7 +71,11 @@ const Register = () => {
     return true
   }
 
-  const isFormEmpty = ({ email, password, passwordConfirmation }: Omit<RegisterFormState, 'formErrors'>) => {
+  const isFormEmpty = ({
+    email,
+    password,
+    passwordConfirmation,
+  }: Pick<RegisterFormState, 'email' | 'password' | 'passwordConfirmation'>) => {
     return !email.length || !password.length || !passwordConfirmation.length
   }
 
