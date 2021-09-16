@@ -85,7 +85,7 @@ const Register = () => {
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [event.target.id]: event.target.value })
+    setState(prevState => ({ ...prevState, [event.target.id]: event.target.value }))
   }
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -140,15 +140,15 @@ const Register = () => {
                     right="8px"
                     top="8px"
                     onClick={() => {
-                      setState({ ...state, formErrors: [] })
+                      setState(prevState => ({ ...prevState, formErrors: [] }))
                       setFormState('initial')
                     }}
                   />
                 </Flex>
                 <Box px="1rem" pt={3}>
                   <UnorderedList>
-                    {state.formErrors.map((error, index) => {
-                      return <ListItem key={index}>{error.message}</ListItem>
+                    {state.formErrors.map((formError, index) => {
+                      return <ListItem key={index}>{formError.message}</ListItem>
                     })}
                   </UnorderedList>
                 </Box>
@@ -238,7 +238,6 @@ const Register = () => {
 
           <Flex p={2} align="center" justify="center" borderRadius={20}>
             <RouteLink to="/login">
-              {/* TODO: create Chakra color scheme for <Link /> */}
               <HStack>
                 <Text>Already have an account?</Text>
                 <Text color="blue.500">Login</Text>
