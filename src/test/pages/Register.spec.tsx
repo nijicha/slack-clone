@@ -17,9 +17,9 @@ describe('Register', () => {
 
     expect(screen.getByRole('heading', { name: 'Register' })).toBeInTheDocument()
 
-    // expect(screen.getByLabelText('Email address')).toBeInTheDocument()
-    // expect(screen.getByLabelText('Password')).toBeInTheDocument()
-    // expect(screen.getByLabelText('Password Confirmation')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Password')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Password Confirmation')).toBeInTheDocument()
 
     expect(screen.getByRole('button', { name: 'Register' })).toBeInTheDocument()
   })
