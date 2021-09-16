@@ -48,9 +48,9 @@
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
     "react/no-array-index-key": "off",
-    "react/no-children-prop": "off",
+    "react/no-children-prop": "off", // Turn off for Chakra UI <Icon />
     "jsx-a11y/anchor-is-valid": "off", // Turn off for Chakra UI <Link />
-    "no-debugger": "off"
+    "no-debugger": "warn"
   },
   "settings": {
     "import/resolver": {
