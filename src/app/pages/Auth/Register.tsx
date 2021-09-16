@@ -94,20 +94,13 @@ const Register = () => {
       firebase
         .auth()
         .createUserWithEmailAndPassword(state.email, state.password)
-        .then(createdUser => {
+        .then(_ => {
           setFormState('success')
-
-          // eslint-disable-next-line
-          console.log(createdUser)
           return true
         })
-        .catch(err => {
+        .catch(_ => {
           setIsError(true)
           setFormState('initial')
-
-          // eslint-disable-next-line
-          console.error(err)
-          return false
         })
     } else {
       setIsError(true)
