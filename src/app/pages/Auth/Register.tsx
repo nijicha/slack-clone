@@ -90,6 +90,8 @@ const Register = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
 
+    setIsShowPassword(false)
+
     if (isFormValid()) {
       setIsError(false)
       setFormState('submitting')
