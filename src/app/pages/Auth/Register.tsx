@@ -15,6 +15,8 @@ import {
   Icon,
   Image,
   Input,
+  InputGroup,
+  InputRightElement,
   ListItem,
   Spacer,
   Stack,
@@ -22,7 +24,7 @@ import {
   UnorderedList,
 } from '@chakra-ui/react'
 import * as React from 'react'
-import { FaCheckCircle } from 'react-icons/fa'
+import { FaCheckCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { Link as RouteLink } from 'react-router-dom'
 
 import firebase from '../../../config/firebase'
@@ -47,6 +49,7 @@ const Register = () => {
   })
   const [formState, setFormState] = React.useState<'initial' | 'submitting' | 'success'>('initial')
   const [isError, setIsError] = React.useState(false)
+  const [isShowPassword, setIsShowPassword] = React.useState(false)
 
   const isFormValid = () => {
     const errors: Array<ErrorMsg> = []
@@ -160,24 +163,54 @@ const Register = () => {
 
           <FormControl id="password" isRequired>
             <FormLabel>Password</FormLabel>
-            <Input
-              onChange={handleChange}
-              value={state.password}
-              type="password"
-              placeholder="Password"
-              borderRadius={20}
-            />
+            <InputGroup>
+              <Input
+                onChange={handleChange}
+                value={state.password}
+                type={isShowPassword ? 'text' : 'password'}
+                placeholder="Password"
+                borderRadius={20}
+              />
+              <InputRightElement width="4.5rem">
+                <Button
+                  h="1.75rem"
+                  size="sm"
+                  background="transparent"
+                  borderRadius={20}
+                  onClick={() => {
+                    setIsShowPassword(!isShowPassword)
+                  }}
+                >
+                  {isShowPassword ? <Icon as={FaEye} /> : <Icon as={FaEyeSlash} />}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
 
           <FormControl id="passwordConfirmation" isRequired>
             <FormLabel>Password Confirmation</FormLabel>
-            <Input
-              onChange={handleChange}
-              value={state.passwordConfirmation}
-              type="password"
-              placeholder="Password Confirmation"
-              borderRadius={20}
-            />
+            <InputGroup>
+              <Input
+                onChange={handleChange}
+                value={state.passwordConfirmation}
+                type={isShowPassword ? 'text' : 'password'}
+                placeholder="Password Confirmation"
+                borderRadius={20}
+              />
+              <InputRightElement width="4.5rem">
+                <Button
+                  h="1.75rem"
+                  size="sm"
+                  background="transparent"
+                  borderRadius={20}
+                  onClick={() => {
+                    setIsShowPassword(!isShowPassword)
+                  }}
+                >
+                  {isShowPassword ? <Icon as={FaEye} /> : <Icon as={FaEyeSlash} />}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
 
           <Spacer />
