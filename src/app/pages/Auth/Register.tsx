@@ -7,6 +7,7 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  HStack,
   Heading,
   Image,
   Input,
@@ -15,7 +16,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import { Link as RouteLink } from 'react-router-dom'
 
 import firebase from '../../../config/firebase'
 
@@ -126,17 +127,17 @@ const Register = () => {
 
           <FormControl id="email" isRequired>
             <FormLabel>Email</FormLabel>
-            <Input type="email" onChange={handleChange} borderRadius={20} autoFocus />
+            <Input onChange={handleChange} type="email" placeholder="Email" borderRadius={20} autoFocus />
           </FormControl>
 
           <FormControl id="password" isRequired>
             <FormLabel>Password</FormLabel>
-            <Input type="password" onChange={handleChange} borderRadius={20} />
+            <Input onChange={handleChange} type="password" placeholder="Password" borderRadius={20} />
           </FormControl>
 
           <FormControl id="passwordConfirmation" isRequired>
             <FormLabel>Password Confirmation</FormLabel>
-            <Input type="password" onChange={handleChange} borderRadius={20} />
+            <Input onChange={handleChange} type="password" placeholder="Password Confirmation" borderRadius={20} />
           </FormControl>
 
           <Spacer />
@@ -153,11 +154,14 @@ const Register = () => {
 
           <Divider />
 
-          <Flex p={2} align="center" justify="center" boxShadow="base" borderRadius={20}>
-            <Text>
-              Already have an account? &nbsp;
-              <Link to="/login">Login</Link>
-            </Text>
+          <Flex p={2} align="center" justify="center" borderRadius={20}>
+            <RouteLink to="/login">
+              {/* TODO: create Chakra color scheme for <Link /> */}
+              <HStack>
+                <Text>Already have an account?</Text>
+                <Text color="blue.500">Login</Text>
+              </HStack>
+            </RouteLink>
           </Flex>
         </Stack>
       </Flex>
