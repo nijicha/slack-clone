@@ -1,8 +1,6 @@
 import {
   Alert,
-  AlertDescription,
   AlertIcon,
-  AlertTitle,
   Box,
   Button,
   CloseButton,
@@ -51,18 +49,21 @@ const Register = () => {
   const [isShowPassword, setIsShowPassword] = React.useState(false)
 
   const isFormValid = () => {
-    const formErrors: Array<FormErrorsMsg> = []
-    setState({ ...state, formErrors })
+    setState(prevState => ({ ...prevState, formErrors: [] }))
 
     if (isFormEmpty(state)) {
-      formErrors.push({ message: 'Fill in all fields' })
-      setState({ ...state, formErrors })
+      setState(prevState => ({
+        ...prevState,
+        formErrors: [...prevState.formErrors, { message: 'Fill in all fields' }],
+      }))
       return false
     }
 
     if (!isPasswordValid(state)) {
-      formErrors.push({ message: 'Password is invalid' })
-      setState({ ...state, formErrors })
+      setState(prevState => ({
+        ...prevState,
+        formErrors: [...prevState.formErrors, { message: 'Password is invalid' }],
+      }))
       return false
     }
 
@@ -93,20 +94,23 @@ const Register = () => {
     setIsShowPassword(false)
 
     if (isFormValid()) {
-      const submittingState = { ...state }
-      setState({ ...submittingState, formErrors: [], firebaseResponse: {} })
+      setState(prevState => ({
+        ...prevState,
+        formErrors: [],
+        firebaseResponse: {},
+      }))
       setFormState('submitting')
 
       firebase
         .auth()
         .createUserWithEmailAndPassword(state.email, state.password)
         .then(response => {
-          setState({ ...state, firebaseResponse: { response } })
+          setState(prevState => ({ ...prevState, firebaseResponse: { response } }))
           setFormState('success')
           return true
         })
         .catch(error => {
-          setState({ ...state, firebaseResponse: { error } })
+          setState(prevState => ({ ...prevState, firebaseResponse: { error } }))
           setFormState('initial')
         })
     } else {
@@ -126,28 +130,30 @@ const Register = () => {
       <Flex as="form" p={8} flex={1} align="center" justify="center" onSubmit={handleSubmit}>
         <Stack spacing={4} w="full" maxW="md">
           {state.formErrors.length > 0 && (
-            <Alert status="error">
-              <AlertIcon />
-              <Box flex="1">
-                <AlertTitle>There was an error processing your request.</AlertTitle>
-                <AlertDescription>
+            <Box>
+              <Alert status="error" flexDirection="column" alignItems="flex-start">
+                <Flex>
+                  <AlertIcon />
+                  There was an error processing your request.
+                  <CloseButton
+                    position="absolute"
+                    right="8px"
+                    top="8px"
+                    onClick={() => {
+                      setState({ ...state, formErrors: [] })
+                      setFormState('initial')
+                    }}
+                  />
+                </Flex>
+                <Box px="1rem" pt={3}>
                   <UnorderedList>
                     {state.formErrors.map((error, index) => {
                       return <ListItem key={index}>{error.message}</ListItem>
                     })}
                   </UnorderedList>
-                </AlertDescription>
-              </Box>
-              <CloseButton
-                position="absolute"
-                right="8px"
-                top="8px"
-                onClick={() => {
-                  setState({ ...state, formErrors: [] })
-                  setFormState('initial')
-                }}
-              />
-            </Alert>
+                </Box>
+              </Alert>
+            </Box>
           )}
 
           <Heading fontSize="2xl">Register</Heading>
