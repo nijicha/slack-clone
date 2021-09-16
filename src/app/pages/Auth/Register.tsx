@@ -27,6 +27,10 @@ import { Link as RouteLink } from 'react-router-dom'
 
 import firebase from '../../../config/firebase'
 
+interface ErrorMsg {
+  message: string
+}
+
 interface RegisterFormState {
   email: string
   password: string
@@ -41,12 +45,11 @@ const Register = () => {
     passwordConfirmation: '',
     errors: [],
   })
-
   const [formState, setFormState] = React.useState<'initial' | 'submitting' | 'success'>('initial')
   const [isError, setIsError] = React.useState(false)
 
-  const isFormValid = (): boolean => {
-    const errors: Array<{ message: string }> = []
+  const isFormValid = () => {
+    const errors: Array<ErrorMsg> = []
 
     if (isFormEmpty(state)) {
       errors.push({ message: 'Fill in all fields' })
@@ -63,26 +66,26 @@ const Register = () => {
     return true
   }
 
-  const isFormEmpty = ({ email, password, passwordConfirmation }: Omit<RegisterFormState, 'errors'>): boolean => {
+  const isFormEmpty = ({ email, password, passwordConfirmation }: Omit<RegisterFormState, 'errors'>) => {
     return !email.length || !password.length || !passwordConfirmation.length
   }
 
   const isPasswordValid = ({
     password,
     passwordConfirmation,
-  }: Pick<RegisterFormState, 'password' | 'passwordConfirmation'>): boolean => {
+  }: Pick<RegisterFormState, 'password' | 'passwordConfirmation'>) => {
     if (password.length < 6 || passwordConfirmation.length < 6) {
       return false
     }
     return password === passwordConfirmation
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [e.target.id]: e.target.value })
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({ ...state, [event.target.id]: event.target.value })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
 
     if (isFormValid()) {
       setIsError(false)
