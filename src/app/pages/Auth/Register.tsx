@@ -29,12 +29,14 @@ import { Link as RouteLink } from 'react-router-dom'
 
 import firebase from '../../../config/firebase'
 import { FormErrorsMsg } from '../../types/common/form'
+import { FirebaseAuthResponse } from '../../types/vendor/firebase'
 
 interface RegisterFormState {
   email: string
   password: string
   passwordConfirmation: string
   formErrors: Array<FormErrorsMsg>
+  firebaseResponse: FirebaseAuthResponse
 }
 
 const Register = () => {
@@ -43,9 +45,9 @@ const Register = () => {
     password: '',
     passwordConfirmation: '',
     formErrors: [],
+    firebaseResponse: {},
   })
   const [formState, setFormState] = React.useState<'initial' | 'submitting' | 'success'>('initial')
-  const [isError, setIsError] = React.useState(false)
   const [isShowPassword, setIsShowPassword] = React.useState(false)
 
   const isFormValid = () => {
@@ -91,22 +93,23 @@ const Register = () => {
     setIsShowPassword(false)
 
     if (isFormValid()) {
-      setIsError(false)
+      const submittingState = { ...state }
+      setState({ ...submittingState, formErrors: [], firebaseResponse: {} })
       setFormState('submitting')
 
       firebase
         .auth()
         .createUserWithEmailAndPassword(state.email, state.password)
-        .then(_ => {
+        .then(response => {
+          setState({ ...state, firebaseResponse: { response } })
           setFormState('success')
           return true
         })
-        .catch(_ => {
-          setIsError(true)
+        .catch(error => {
+          setState({ ...state, firebaseResponse: { error } })
           setFormState('initial')
         })
     } else {
-      setIsError(true)
       setFormState('initial')
     }
   }
@@ -122,7 +125,7 @@ const Register = () => {
       </Flex>
       <Flex as="form" p={8} flex={1} align="center" justify="center" onSubmit={handleSubmit}>
         <Stack spacing={4} w="full" maxW="md">
-          {isError && state.formErrors.length > 0 && (
+          {state.formErrors.length > 0 && (
             <Alert status="error">
               <AlertIcon />
               <Box flex="1">
@@ -140,7 +143,7 @@ const Register = () => {
                 right="8px"
                 top="8px"
                 onClick={() => {
-                  setIsError(false)
+                  setState({ ...state, formErrors: [] })
                   setFormState('initial')
                 }}
               />
