@@ -27,7 +27,7 @@ import { FaCheckCircle, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { Link as RouteLink } from 'react-router-dom'
 
 import firebase from '../../../config/firebase'
-import { FormErrorsMsg } from '../../types/common/form'
+import { FormErrorsMsg, FormStateWithPasswordInput } from '../../types/common/form'
 import { FirebaseAuthResponse } from '../../types/vendor/firebase'
 
 interface RegisterFormState {
@@ -46,8 +46,12 @@ const Register = () => {
     formErrors: [],
     firebaseResponse: {},
   })
-  const [formState, setFormState] = React.useState<'initial' | 'submitting' | 'success'>('initial')
-  const [isShowPassword, setIsShowPassword] = React.useState(false)
+  const [formState, setFormState] = React.useState<FormStateWithPasswordInput>({
+    status: 'initial',
+    userAction: 'initial',
+    isShowPassword: false,
+    showPasswordRules: false,
+  })
 
   const isFormValid = () => {
     setState(prevState => ({ ...prevState, formErrors: [] }))
@@ -96,7 +100,7 @@ const Register = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
 
-    setIsShowPassword(false)
+    setFormState(prevState => ({ ...prevState, isShowPassword: false }))
 
     if (isFormValid()) {
       setState(prevState => ({
@@ -104,22 +108,22 @@ const Register = () => {
         formErrors: [],
         firebaseResponse: {},
       }))
-      setFormState('submitting')
+      setFormState(prevState => ({ ...prevState, status: 'submitting' }))
 
       firebase
         .auth()
         .createUserWithEmailAndPassword(state.email, state.password)
         .then(response => {
           setState(prevState => ({ ...prevState, firebaseResponse: { response } }))
-          setFormState('success')
+          setFormState(prevState => ({ ...prevState, status: 'success' }))
           return true
         })
         .catch(error => {
           setState(prevState => ({ ...prevState, firebaseResponse: { error } }))
-          setFormState('initial')
+          setFormState(prevState => ({ ...prevState, status: 'initial' }))
         })
     } else {
-      setFormState('initial')
+      setFormState(prevState => ({ ...prevState, status: 'initial' }))
     }
   }
 
@@ -146,7 +150,7 @@ const Register = () => {
                     top="8px"
                     onClick={() => {
                       setState(prevState => ({ ...prevState, formErrors: [] }))
-                      setFormState('initial')
+                      setFormState(prevState => ({ ...prevState, status: 'initial' }))
                     }}
                   />
                 </Flex>
@@ -179,12 +183,12 @@ const Register = () => {
             )}
           </FormControl>
 
-          <FormControl id="password" isRequired>
+          <FormControl id="password" isRequired isInvalid={formState.showPasswordRules}>
             <FormLabel>Password</FormLabel>
             <InputGroup>
               <Input
                 value={state.password}
-                type={isShowPassword ? 'text' : 'password'}
+                type={formState.isShowPassword ? 'text' : 'password'}
                 placeholder="Password"
                 borderRadius={20}
                 onChange={handleChange}
@@ -196,21 +200,21 @@ const Register = () => {
                   background="transparent"
                   borderRadius={20}
                   onClick={() => {
-                    setIsShowPassword(!isShowPassword)
+                    setFormState(prevState => ({ ...prevState, isShowPassword: !formState.isShowPassword }))
                   }}
                 >
-                  {isShowPassword ? <Icon as={FaEye} /> : <Icon as={FaEyeSlash} />}
+                  {formState.isShowPassword ? <Icon as={FaEye} /> : <Icon as={FaEyeSlash} />}
                 </Button>
               </InputRightElement>
             </InputGroup>
           </FormControl>
 
-          <FormControl id="passwordConfirmation" isRequired>
+          <FormControl id="passwordConfirmation" isRequired isInvalid={formState.showPasswordRules}>
             <FormLabel>Password Confirmation</FormLabel>
             <InputGroup>
               <Input
                 value={state.passwordConfirmation}
-                type={isShowPassword ? 'text' : 'password'}
+                type={formState.isShowPassword ? 'text' : 'password'}
                 placeholder="Password Confirmation"
                 borderRadius={20}
                 onChange={handleChange}
@@ -222,25 +226,26 @@ const Register = () => {
                   background="transparent"
                   borderRadius={20}
                   onClick={() => {
-                    setIsShowPassword(!isShowPassword)
+                    setFormState(prevState => ({ ...prevState, isShowPassword: !formState.isShowPassword }))
                   }}
                 >
-                  {isShowPassword ? <Icon as={FaEye} /> : <Icon as={FaEyeSlash} />}
+                  {formState.isShowPassword ? <Icon as={FaEye} /> : <Icon as={FaEyeSlash} />}
                 </Button>
               </InputRightElement>
             </InputGroup>
           </FormControl>
+          {formState.showPasswordRules && <Text color="tomato">Password invalid!</Text>}
 
           <Spacer />
 
           <Button
             variant="solid"
             borderRadius={20}
-            type={formState === 'success' ? 'button' : 'submit'}
-            colorScheme={formState === 'success' ? 'green' : 'blue'}
-            isLoading={formState === 'submitting'}
+            type={formState.status === 'success' ? 'button' : 'submit'}
+            colorScheme={formState.status === 'success' ? 'green' : 'blue'}
+            isLoading={formState.status === 'submitting'}
           >
-            {formState === 'success' ? <Icon as={FaCheckCircle} /> : 'Register'}
+            {formState.status === 'success' ? <Icon as={FaCheckCircle} /> : 'Register'}
           </Button>
 
           <Divider />
