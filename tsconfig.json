@@ -19,13 +19,12 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": false, // Set to false for cypress
+    "isolatedModules": true,
     "noEmit": true,
     "jsx": "react"
   },
   "include": [
-    "cypress",
-    "src",
-    "src/setupTests.ts"
+    "**/*.ts",
+    "**/*.d.ts"
   ]
 }

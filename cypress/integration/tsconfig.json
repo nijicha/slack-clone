@@ -1,0 +1,13 @@
+// for Cypress
+// TS file without import/export module
+
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "isolatedModules": false
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.d.ts"
+  ]
+}
