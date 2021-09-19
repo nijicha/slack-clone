@@ -2,7 +2,7 @@
 // TS file without import/export module
 
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "isolatedModules": false
   },

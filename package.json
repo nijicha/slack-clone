@@ -50,7 +50,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test:unit": "react-scripts test",
-    "test:cypress": "cypress open",
+    "cypress": "cypress open",
     "eject": "react-scripts eject",
     "lint": "eslint --fix",
     "format": "prettier --write ./src"
