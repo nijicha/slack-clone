@@ -20,3 +20,5 @@
 // require('./commands')
 
 require('cypress-dark')
+
+cy.faker = require('faker')
